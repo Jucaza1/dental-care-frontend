@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DentCare</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a class="header-logo" href="/">
+            <img src="/assets/logo-large.jpg" alt="DentCare">
+        </a>
+        <div>
+            <a class="nav-button" href="/">
+                <h1>DentCare</h1>
+            </a>
+        </div>
+    </header>
+    <section>
+        <form action="">
+            <fieldset class="form-fieldset">
+                <legend>Appointment Date</legend>
+                <div class="form-subgroup">
+                    <label for="date-field">Date</label>
+                    <input type="date" name="date" id="date-field" value="">
+                </div>
+            </fieldset>
+            <fieldset class="form-fieldset">
+                <legend>Patient Info</legend>
+                <div class="form-subgroup">
+                    <div>
+                        <label for="first-name-field">First Name</label>
+                        <input type="text" name="first-name" id="first-name-field" value="" placeholder="Name...">
+                    </div>
+                    <div>
+                        <label for="last-name-field">Last Name</label>
+                        <input type="text" name="last-name" id="last-name-field" value="" placeholder="Last Name...">
+                    </div>
+                </div>
+                <div class="form-subgroup">
+                    <div>
+                        <label for="ID-field">N-ID</label>
+                        <input type="text" name="ID" id="ID-field" value="" placeholder="12345678A...">
+                    </div>
+                    <div>
+                        <label for="phone-field">Phone Number</label>
+                        <input type="tel" name="phone" id="phone-field" value="" placeholder="+34612345678...">
+                    </div>
+                </div>
+                <div class="form-suggestion">
+                    <p>Your ID must be 8 numbers and 1 letter</p>
+                </div>
+                <div class="form-subgroup">
+                    <label for="birth-date-field">Birth Date</label>
+                    <input type="date" name="birth-date" id="birth-date-field" value="">
+                </div>
+
+                <div class="form-subgroup">
+                    <label for="observations-field">Observations</label>
+                    <textarea name="observations" id="observations-field"
+                        placeholder="Add things of interest..."></textarea>
+                </div>
+            </fieldset>
+
+            <div class="form-submit">
+                <input type="submit" class="menu-button" value="Confirm Appointment">
+            </div>
+
+        </form>
+    </section>
+    <footer>
+        FOOTER TODO
+    </footer>
+</body>
+
+</html>
