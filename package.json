@@ -1,5 +1,5 @@
 {
-  "name": "dentcare-frontend",
+  "name": "dental-care-frontend",
   "version": "1.0.0",
   "description": "frontend for dental clinic",
   "main": "./src/index.ts",
