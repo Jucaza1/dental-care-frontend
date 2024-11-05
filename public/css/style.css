@@ -23,6 +23,7 @@ body {
     --color-p1-3: #7AB2D3;
     --color-p1-4: #4A628A;
     --color-p1-5: #D3E7E8;
+    --color-p1-6: #86B4CF;
 }
 
 a {
@@ -127,9 +128,6 @@ header {
     height: auto;
     padding: 10px 5px;
 
-    /* border: 2px solid var(--color-p1-1); */
-    /* background-color: var(--color-p1-2); */
-    /* border-radius: 3px; */
     &>h1 {
         position: relative;
         top: 3px;
@@ -168,15 +166,27 @@ form {
     background-color: var(--color-p1-2);
     flex-wrap: wrap;
 
-    &>div {
+    & .field-group {
         display: flex;
-        flex-flow: row;
-        align-items: center;
-        min-width: 13rem;
-        max-width: 100%;
+        flex-flow: column;
         flex-grow: 1;
 
+        & .label-input {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            min-width: 13rem;
+            max-width: 100%;
+            flex-grow: 1;
+        }
+        & span{
+            color:red;
+        }
+        & #countSpan{
+            color:inherit
+        }
     }
+
 
     & input {
         padding: 3px 5px;
@@ -197,6 +207,13 @@ form {
     }
 
     & input[type="date"] {
+        padding: 3px 5px;
+        background-color: var(--color-p1-1);
+        text-align: center;
+        align-self: stretch;
+    }
+
+    & input[type="datetime-local"] {
         padding: 3px 5px;
         background-color: var(--color-p1-1);
         text-align: center;
@@ -235,4 +252,29 @@ form {
 legend {
     font-size: 1.5rem;
     text-align: center;
+}
+
+/* List page*/
+.appt-table {
+    width: 100%;
+
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+
+    & th,
+    & td {
+        border-bottom: 1px solid black;
+        padding: 0.8rem;
+        text-align: center;
+    }
+
+    & tr:nth-child(even) {
+        background-color: var(--color-p1-6);
+    }
+
+    & th {
+        background-color: var(--color-p1-4);
+        color: var(--color-p1-1);
+    }
+
 }

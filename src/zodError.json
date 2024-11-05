@@ -1,0 +1,59 @@
+{
+    "issues": [
+        {
+            "code": "invalid_string",
+            "validation": "datetime",
+            "message": "Appointment date is required",
+            "path": [
+                "apptDate"
+            ]
+        },
+        {
+            "code": "too_small",
+            "minimum": 1,
+            "type": "string",
+            "inclusive": true,
+            "exact": false,
+            "message": "First name is required",
+            "path": [
+                "firstName"
+            ]
+        },
+        {
+            "code": "too_small",
+            "minimum": 1,
+            "type": "string",
+            "inclusive": true,
+            "exact": false,
+            "message": "Last name is required",
+            "path": [
+                "lastName"
+            ]
+        },
+        {
+            "validation": "regex",
+            "code": "invalid_string",
+            "message": "ID must be 8 digits and a letter",
+            "path": [
+                "NID"
+            ]
+        },
+        {
+            "validation": "regex",
+            "code": "invalid_string",
+            "message": "Phone must be valid",
+            "path": [
+                "phone"
+            ]
+        },
+        {
+            "code": "invalid_string",
+            "validation": "date",
+            "message": "Birth date must be valid",
+            "path": [
+                "birthDate"
+            ]
+        }
+    ],
+    "name": "ZodError"
+}

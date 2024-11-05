@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DentCare</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link href="/css/style.css" rel="stylesheet">
 </head>
 
@@ -20,48 +21,68 @@
         </div>
     </header>
     <section>
-        <form action="">
+        <form id="apptForm">
             <fieldset class="form-fieldset">
                 <legend>Appointment Date</legend>
                 <div class="form-subgroup">
-                    <label for="date-field">Date</label>
-                    <input type="date" name="date" id="date-field" value="">
+                    <div class="field-group">
+                        <div class="label-input">
+                            <label for="appt-date-field">Date</label>
+                            <input type="datetime-local" name="apptDate" id="appt-date-field" value="">
+                        </div>
+                    </div>
                 </div>
             </fieldset>
             <fieldset class="form-fieldset">
                 <legend>Patient Info</legend>
                 <div class="form-subgroup">
-                    <div>
-                        <label for="first-name-field">First Name</label>
-                        <input type="text" name="first-name" id="first-name-field" value="" placeholder="Name...">
+                    <div class="field-group">
+                        <div class="label-input">
+                            <label for="first-name-field">First Name</label>
+                            <input type="text" name="firstName" id="first-name-field" value="" placeholder="Name...">
+                        </div>
                     </div>
-                    <div>
-                        <label for="last-name-field">Last Name</label>
-                        <input type="text" name="last-name" id="last-name-field" value="" placeholder="Last Name...">
+                    <div class="field-group">
+                        <div class="label-input">
+                            <label for="last-name-field">Last Name</label>
+                            <input type="text" name="lastName" id="last-name-field" value="" placeholder="Last Name...">
+                        </div>
                     </div>
                 </div>
                 <div class="form-subgroup">
-                    <div>
-                        <label for="ID-field">N-ID</label>
-                        <input type="text" name="ID" id="ID-field" value="" placeholder="12345678A...">
+                    <div class="field-group">
+                        <div class="label-input">
+                            <label for="NID-field">N-ID</label>
+                            <input type="text" name="NID" id="NID-field" value="" placeholder="12345678A...">
+                        </div>
                     </div>
-                    <div>
-                        <label for="phone-field">Phone Number</label>
-                        <input type="tel" name="phone" id="phone-field" value="" placeholder="+34612345678...">
+                    <div class="field-group">
+                        <div class="label-input">
+                            <label for="phone-field">Phone Number</label>
+                            <input type="tel" name="phone" id="phone-field" value="" placeholder="+34612345678...">
+                        </div>
                     </div>
                 </div>
                 <div class="form-suggestion">
                     <p>Your ID must be 8 numbers and 1 letter</p>
                 </div>
                 <div class="form-subgroup">
-                    <label for="birth-date-field">Birth Date</label>
-                    <input type="date" name="birth-date" id="birth-date-field" value="">
+                    <div class="field-group">
+                        <div class="label-input">
+                            <label for="birth-date-field">Birth Date</label>
+                            <input type="date" name="birthDate" id="birth-date-field" value="">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-subgroup">
-                    <label for="observations-field">Observations</label>
-                    <textarea name="observations" id="observations-field"
-                        placeholder="Add things of interest..."></textarea>
+                    <div class="field-group">
+                        <div class="label-input">
+                            <label for="observations-field">Observations</label>
+                            <textarea name="observations" id="observations-field"
+                                placeholder="Add things of interest..."></textarea>
+                        </div>
+                    </div>
                 </div>
             </fieldset>
 
@@ -74,6 +95,7 @@
     <footer>
         FOOTER TODO
     </footer>
+    <script type="module" src="/dist/bundle.js"></script>
 </body>
 
 </html>

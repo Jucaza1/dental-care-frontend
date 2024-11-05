@@ -1,0 +1,32 @@
+{
+  "name": "dentcare-frontend",
+  "version": "1.0.0",
+  "description": "frontend for dental clinic",
+  "main": "./src/index.ts",
+  "scripts": {
+        "prod": "webpack --mode production",
+        "dev": "webpack --watch --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/jucaza1/dentcare-frontend"
+  },
+  "keywords": [
+    "frontend",
+    "dental",
+    "clinic"
+  ],
+  "author": "jucaza1",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "tsc": "^2.0.4",
+    "typescript": "^5.6.3",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "zod": "3.23.8"
+  }
+}
