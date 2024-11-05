@@ -24,6 +24,7 @@ if (form) {
                 formData[key as keyof ApptFormEntries] = val as string;
             }
         })
+        console.table(formData)
         let result = validateData(formData)
         if (!result.success) {
             if (!result.errors) { //check for undefined
