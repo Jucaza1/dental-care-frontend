@@ -1,6 +1,7 @@
-import { z } from "zod"
+import { getCookies, makeID, storeCookie } from "./cookie"
+import { ApptFormEntries, validateData, validationError } from "./types"
 
-let form = document.getElementById("apptForm")
+const form = document.getElementById("apptForm")
 if (form) {
     let lastErrors: Array<validationError> = []
     form.addEventListener("submit", (e) => {
@@ -9,7 +10,7 @@ if (form) {
             console.error("cant find formData")
             return
         }
-        let rawFormData = new FormData(e.target as HTMLFormElement)
+        const rawFormData = new FormData(e.target as HTMLFormElement)
         let formData: ApptFormEntries = {
             apptDate: "",
             firstName: "",
@@ -25,7 +26,7 @@ if (form) {
             }
         })
         console.table(formData)
-        let result = validateData(formData)
+        const result = validateData(formData)
         if (!result.success) {
             if (!result.errors) { //check for undefined
                 console.error("expected errors to be defined")
@@ -38,13 +39,14 @@ if (form) {
         }
         cleanValidFieldError([], lastErrors)
         //store data in cookies or send
+        storeCookie(makeID(formData), formData)
     })
 }
 // Character counter for Observations field
-let observationsInput = document.getElementsByName("observations")[0]
+const observationsInput = document.getElementsByName("observations")[0]
 if (observationsInput) {
     observationsInput.addEventListener("change", (e) => {
-        let charCount = (e.target as HTMLInputElement).value.length
+        const charCount = (e.target as HTMLInputElement).value.length
         let countSpan = document.getElementById("countSpan")
         if (!countSpan) {
             countSpan = document.createElement("span")
@@ -55,39 +57,27 @@ if (observationsInput) {
     })
 }
 
-function validateData(data: ApptFormEntries): Result<validationError> {
-    let result = ApptFormEntriesSchema.safeParse(data)
-    if (!result.success) {
-        let errors: Array<validationError> = []
-        result.error.issues.forEach((issue) => {
-            errors.push({ path: issue.path[0] as string, message: issue.message })
-        })
-
-        return { success: false, errors: errors }
-    }
-    return { success: true }
-}
-
 function displayErrors(errors: Array<validationError>) {
     errors.forEach((err) => {
         //check is there is an error already
-        let currentErrorSpan = document.getElementById("errSpan-" + err.path)
+        const currentErrorSpan = document.getElementById("errSpan-" + err.path)
         if (currentErrorSpan) {
             currentErrorSpan.innerText = err.message
             return
         }
         //create errorSpan
-        let input = document.getElementsByName(err.path)[0]
+        const input = document.getElementsByName(err.path)[0]
         if (!input) { //check for undefined
             console.error(`expected input named ${err.path} to exist`)
             return
         }
-        let labelInputGroup = input.parentElement
-        if (!labelInputGroup) { //check for null
+        const labelInputGroup = input.parentElement
+        //check for null
+        if (!labelInputGroup) {
             console.error(`expected label-input parent of input named ${err.path} to exist`)
             return
         }
-        let errorSpan = document.createElement("span")
+        const errorSpan = document.createElement("span")
         errorSpan.innerText = err.message
         errorSpan.id = "errSpan-" + err.path
         labelInputGroup.insertAdjacentElement("afterend", errorSpan)
@@ -105,45 +95,184 @@ function cleanValidFieldError(errors: Array<validationError>, lastErrors: Array<
     }
 }
 
-type Result<T> = {
-    success: boolean;
-    errors?: Array<T>;
+const table = document.getElementsByClassName("appt-table")[0] as HTMLTableElement
+if (table) {
+    console.log("table exists, setting evenet")
+    document.addEventListener("DOMContentLoaded", (_e) => {
+        const tbody = document.getElementsByClassName("appt-table-body")[0]
+        if (!tbody) {
+            console.error("expected table body to exist")
+            return
+        }
+        console.log("getting appts from cookies")
+        const mapEntries = getCookies()
+        mapEntries.forEach((appt, id) => {
+            console.log(id)
+            console.table(appt)
+            tbody.append(intoTableRow(id, appt))
+        })
+    })
 }
-type validationError = {
-    path: string,
-    message: string
+enum fields {
+    NID = "NID",
+    apptDate = "apptDate",
+    firstName = "firstName",
+    lastName = "lastName",
+    phone = "phone",
+    birthDate = "birthDate",
+    observations = "observations",
 }
 
-const dniRegex = /^\d{8}[A-Za-z]$/
-const phoneRegex = /^(?:\+34)?[6789]\d{8}$/
-const dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/
-const dateRegex = /^\d{4}-\d{2}-\d{2}$/
+function intoTableRow(id: string, appt: ApptFormEntries): HTMLTableRowElement {
+    const row = document.createElement("tr") as HTMLTableRowElement
+    let td = document.createElement("td")
+    td.innerText = appt.NID
+    td.id = `${id}-${fields.NID}`
+    row.append(td)
+    td = document.createElement("td")
+    td.innerText = appt.firstName
+    td.id = `${id}-${fields.firstName}`
+    row.append(td)
+    td = document.createElement("td")
+    td.innerText = appt.lastName
+    td.id = `${id}-${fields.lastName}`
+    row.append(td)
+    td = document.createElement("td")
+    td.innerText = appt.birthDate
+    td.id = `${id}-${fields.birthDate}`
+    row.append(td)
+    td = document.createElement("td")
+    td.innerText = appt.apptDate
+    td.id = `${id}-${fields.apptDate}`
+    row.append(td)
+    td = document.createElement("td")
+    td.innerText = appt.phone
+    td.id = `${id}-${fields.phone}`
+    row.append(td)
+    td = document.createElement("td")
+    td.innerText = appt.observations
+    td.id = `${id}-${fields.observations}`
+    row.append(td)
+    td = document.createElement("td")
+    {
+        const b1 = document.createElement("button")
+        b1.innerText = "Delete"
+        b1.id = `${id}-button1`
+        b1.onclick = () => { window.alert("todo") }
+        const b2 = document.createElement("button")
+        b2.innerText = "Edit"
+        b2.id = `${id}-button2`
+        b2.onclick = OnclickEditRow
+        td.append(b1, b2)
 
-const ApptFormEntriesSchema = z.object({
-    apptDate: z.string().regex(dateTimeRegex, { message: "Appointment date is required" })
-        .refine((date) => {
-            return (Date.now() < new Date(date).valueOf()) || (date === "")
-        }, { message: "Appointment date cannot be in the past" }),
-    firstName: z.string().max(20, { message: "First name must be at most 20 characters" })
-        .nonempty({ message: "First name is required" }),
-    lastName: z.string().max(20, { message: "Last name must be at most 20 characters" })
-    .nonempty({ message: "Last name is required" }),
-    NID: z.string().regex(dniRegex, { message: "ID must be 8 digits and a letter" }),
-    phone: z.string().regex(phoneRegex, { message: "Phone must be valid" }),
-    birthDate: z.string().regex(dateRegex, { message: "Birth date must be valid" })
-        .refine((date) => {
-            return (Date.now() > new Date(date).valueOf()) || (date === "")
-        }, { message: "Birth date cannot be in the future" }),
-    observations: z.string().max(200, { message: "observations must be at most 200 characters" }),
-})
+    }
+    row.append(td)
+    row.id = id
+    return row
+}
 
-type ApptFormEntries = z.infer<typeof ApptFormEntriesSchema>
-// type ApptFormEntries = {
-//     apptDate: string;
-//     firstName: string;
-//     lastName: string;
-//     NID: string;
-//     phone: string;
-//     birthDate: string;
-//     observations: string;
-// }
+function OnclickEditRow(e: Event) {
+    const button = e.target as HTMLButtonElement
+    const row = button.parentElement?.parentElement as HTMLTableRowElement
+    if (!row) {
+        console.error("expected row element to exist")
+    }
+    if (!transformRowEdit(row)) {
+        console.error("couldnt convert row into editable")
+    }
+}
+function transformRowEdit(row: HTMLTableRowElement): boolean {
+    const mapEntries = getCookies()
+    const id = row.id
+    const entry = mapEntries.get(id)
+    if (!entry) {
+        console.error("expected id to be present in row")
+        //do nothing
+        return false
+    }
+    let success = replaceCellEdit(id, entry.NID, "text", fields.NID)
+    success &&= replaceCellEdit(id, entry.firstName, "text", fields.firstName)
+    success &&= replaceCellEdit(id, entry.lastName, "text", fields.lastName)
+    success &&= replaceCellEdit(id, entry.birthDate, "date", fields.birthDate)
+    success &&= replaceCellEdit(id, entry.apptDate, "datetime-local", fields.apptDate)
+    success &&= replaceCellEdit(id, entry.phone, "text", fields.phone)
+    success &&= replaceCellEdit(id, entry.observations, "text", fields.observations)
+    success &&= replaceButtonsEdit(id)
+    return success
+}
+function replaceCellEdit(id: string, entryField: string, type: string, field: string): boolean {
+    const td = document.getElementById(`${id}-${field}`)
+    if (!td) {
+        console.error("expected cell element to be present")
+        return false
+    }
+    const wrapInput = document.createElement("div")
+    wrapInput.className = "table-input-gp"
+    const input = document.createElement("input")
+    input.type = type
+    input.value = entryField
+    input.id = `${id}-${field}-input`
+    td.innerText = ""
+    wrapInput.append(input)
+    td.append(wrapInput)
+
+    return true
+}
+function replaceButtonsEdit(id: string): boolean {
+    const b1 = document.getElementById(`${id}-button1`) as HTMLButtonElement
+    if (!b1) {
+        return false
+    }
+    const b2 = document.getElementById(`${id}-button2`) as HTMLButtonElement
+    if (!b2) {
+        return false
+    }
+    b1.innerText = "Cancel"
+    b1.onclick = OnclickCancel
+    b2.innerText = "Save"
+    b2.onclick = () => { window.alert("todo") }
+    return true
+}
+function OnclickCancel(e: Event) {
+    const button = e.target as HTMLButtonElement
+    if (!button) {
+        console.error("expected button cancel to exist")
+    }
+    const row = button.parentElement?.parentElement as HTMLTableRowElement
+    const id = row.id
+    if (!id) {
+        console.error("expected id to be present in tr element")
+        return
+    }
+    if (!transformRowNormal(row)) {
+        console.error("couldnt convert row into editable")
+    }
+}
+function transformRowNormal(row: HTMLTableRowElement): boolean {
+    const mapEntries = getCookies()
+    const id = row.id
+    const entry = mapEntries.get(id)
+    if (!entry) {
+        console.error("expected id to be present in row")
+        //do nothing
+        return false
+    }
+    const normalRow = intoTableRow(id, entry)
+    row.replaceWith(normalRow)
+    let success = replaceButtonsNormal(id)
+    return success
+
+}
+function replaceButtonsNormal(id: string): boolean {
+    const b1 = document.getElementById(`${id}-button1`)
+    if (!b1) {
+        return false
+    }
+    const b2 = document.getElementById(`${id}-button2`)
+    if (!b2) {
+        return false
+    }
+    b1.innerText = "Delete"
+    b2.innerText = "Edit"
+    return true
+}

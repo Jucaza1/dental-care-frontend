@@ -14,7 +14,7 @@ const (
 func main() {
 	app := http.NewServeMux()
 	app.HandleFunc("GET /", centralErrorHandler(homeHandler))
-    fmt.Println("Listening on http://localhost",PORT)
+    fmt.Printf("Listening on http://localhost%s\n",PORT)
     log.Fatal(http.ListenAndServe(PORT,app))
 }
 func homeHandler(w http.ResponseWriter, r *http.Request) error {

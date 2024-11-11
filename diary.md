@@ -24,3 +24,11 @@ display and clean the error messages next to each field.
 
 Lastly I added a character counter using the onchange event for the textarea
 label to display it as the limit was 200.
+
+## Update
+Saving data on cookies was trivial, first serialize and then use a generated id
+as a key and the stringified object as the value. After that I noticed that
+for the cookies to be available on specific paths, the attribute (or parameter)
+path=/; would enable the cookie to be visible from the whole domain.
+
+Manage state of each row, replacewith method, refetch row if cancel...
