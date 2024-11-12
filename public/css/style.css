@@ -31,7 +31,7 @@ a {
     color: inherit;
 
     &:visited {
-        color: inherit;
+        color: unset;
     }
 }
 
@@ -41,16 +41,55 @@ section {
     align-items: center;
     gap: 10dvh;
     background-color: var(--color-p1-5);
-    min-height: 85dvh;
+    min-height: 80dvh;
     padding: 5dvh 1dvw;
+
     /* color: var(--color-p1-4); */
+    & article {
+        max-width: 20%;
+
+        & h2 {
+            margin: 0.3rem 0;
+        }
+
+        & ul {
+            margin: 0.4rem 0;
+            margin-left: 2rem;
+        }
+
+        & a {
+            display: block;
+            padding: 0.5rem 0;
+            font-size: 1.7rem;
+            text-decoration: underline;
+            color: var(--color-p1-4);
+
+            &:visited {
+                color: var(--color-p1-4);
+            }
+        }
+    }
 }
 
 footer {
     background-color: var(--color-p1-4);
     color: var(--color-p1-2);
-    min-height: 5dvh;
+    min-height: 10dvh;
     padding: 1dvh 1dvw;
+    display: flex;
+    flex-flow: row;
+
+    & div.footer-section {
+        flex-grow: 1;
+
+        & a {
+            text-decoration: underline;
+        }
+
+        li {
+            list-style-type: square;
+        }
+    }
 }
 
 header {
@@ -179,11 +218,13 @@ form {
             max-width: 100%;
             flex-grow: 1;
         }
-        & span{
-            color:red;
+
+        & span {
+            color: red;
         }
-        & #countSpan{
-            color:inherit
+
+        & #countSpan {
+            color: inherit
         }
     }
 
@@ -260,12 +301,36 @@ legend {
 
     border-bottom: 1px solid black;
     border-collapse: collapse;
+    /* grid-template-columns: repeat(7, 60px) 80px; */
 
     & th,
     & td {
         border-bottom: 1px solid black;
         padding: 0.8rem;
         text-align: center;
+        width: 10%;
+        max-width: 10px;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    & button.menu-button {
+        font-size: 0.9rem;
+        margin: 0 5%;
+        width: 25%;
+        padding: 0.2rem;
+        text-align: center;
+    }
+
+    & input {
+        width: 100%;
+    }
+
+    & textarea {
+        width: 100%;
+        min-height: 1rem;
+        overflow: hidden;
+        resize: none;
     }
 
     & tr:nth-child(even) {
@@ -275,6 +340,16 @@ legend {
     & th {
         background-color: var(--color-p1-4);
         color: var(--color-p1-1);
+    }
+
+    & .field-group {
+        display: flex;
+        flex-flow: column;
+        flex-grow: 1;
+
+        & span {
+            color: red;
+        }
     }
 
 }

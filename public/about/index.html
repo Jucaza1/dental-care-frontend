@@ -7,6 +7,7 @@
     <title>DentCare</title>
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="https://www.nerdfonts.com/assets/css/webfont.css" rel="stylesheet">
 </head>
 
 <body>
@@ -21,42 +22,26 @@
         </div>
     </header>
     <section>
-            <table class="appt-table">
-                <thead>
-                    <tr>
-                        <th>N-ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Birth Date</th>
-                        <th>Appt. Date</th>
-                        <th>Phone</th>
-                        <th>Info</th>
-                        <th>Options</th>
-                    </tr>
-                </thead>
-                <tbody class="appt-table-body">
-                    <tr>
-                        <td>12345678A</td>
-                        <td>Pepe</td>
-                        <td>Martinez</td>
-                        <td>2024-11-03</td>
-                        <td>2024-11-03</td>
-                        <td>+34673829563</td>
-                        <td>Some relevant information</td>
-                        <td>Delete/ Edit</td>
-                    </tr>
-                    <tr>
-                        <td>12345678A</td>
-                        <td>Pepe</td>
-                        <td>Martinez</td>
-                        <td>2024-11-03</td>
-                        <td>2024-11-03</td>
-                        <td>+34673829563</td>
-                        <td>Some relevant information</td>
-                        <td>Delete/ Edit</td>
-                    </tr>
-                </tbody>
-            </table>
+        <article>
+            <h2>About this project</h2>
+            <p>
+                The aim of this project is to elaborate a web page for a dental clinic.
+            </p>
+            <p>
+                This application consists of three main components:
+            </p>
+            <ul>
+                <li>A Go backend for file serving.</li>
+                <li>The HTML and CSS static file structure.</li>
+                <li>The TypeScript compiled and bundled with Webpack.</li>
+            </ul>
+            <p>The storage is made on local cookies that stay on the browser.</p>
+            <p>Future features like data exchange with the backend and user
+                login are on the way to be added.</p>
+            <br />
+            <p>For further information visit the repository:</p>
+            <a href="https://github.com/jucaza1/dental-care-frontend"><i class="nf nf-cod-github"></i>Github repo</a>
+        </article>
     </section>
     <footer>
         <div class="footer-section contact-info">
@@ -91,7 +76,6 @@
         </div>
 
     </footer>
-    <script type="module" src="/dist/bundle.js"></script>
 </body>
 
 </html>
