@@ -9,3 +9,7 @@ build-windows:
 .PHONY: run
 run: build
 	@./build/frontend-server
+
+docker:
+	@docker build -t dental-care-frontend .
+	@docker-compose up -d
