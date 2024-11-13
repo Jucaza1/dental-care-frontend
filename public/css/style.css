@@ -85,9 +85,12 @@ footer {
         & a {
             text-decoration: underline;
         }
+        &.legal a{
+            text-decoration: none;
+        }
 
         li {
-            list-style-type: square;
+            list-style-type: none;
         }
     }
 }

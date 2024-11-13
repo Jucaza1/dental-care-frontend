@@ -1,4 +1,4 @@
-import { displayErrorMessage } from "./alerts"
+import { displayErrorMessage, displaySuccessMessage } from "./alerts"
 import { makeID, setEntryToCookies } from "./cookie"
 import { ApptData, validateData, validationError } from "./types"
 
@@ -45,6 +45,7 @@ export class StateForm {
         if (!setEntryToCookies(makeID(formData), formData)){
             return displayErrorMessage()
         }
+        displaySuccessMessage()
 
     }
 }

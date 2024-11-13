@@ -22,7 +22,7 @@ export function getEntriesFromCookies(): Map<string, ApptData> {
         try {
             obj = JSON.parse(val)
         } catch (e) {
-            console.error("error: unexpected cookie value format")
+            console.error("error: unexpected cookie value format ->", val)
             continue
         }
         output.set(id, obj as ApptData)

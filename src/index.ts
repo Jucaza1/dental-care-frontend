@@ -26,18 +26,14 @@ if (form) {
 //Table page
 const table = document.getElementsByClassName("appt-table")[0] as HTMLTableElement
 if (table) {
-    console.log("table exists, setting event")
     document.addEventListener("DOMContentLoaded", (_e) => {
         const tbody = document.getElementsByClassName("appt-table-body")[0]
         if (!tbody) {
             console.error("expected table body to exist")
             return
         }
-        console.log("getting appts from cookies")
         const mapEntries = getEntriesFromCookies()
         mapEntries.forEach((appt, id) => {
-            console.log(id)
-            console.table(appt)
             tbody.append(intoTableRow(id, appt))
         })
     })
