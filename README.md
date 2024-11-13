@@ -6,15 +6,36 @@ For the frontend I used HTML, CSS, Typescript and Webpack as bundler.
 ```bash
 git clone https://github.com/jucaza1/dental-care-frontend && cd dental-care-frontend
 ```
+## Run the app with docker and docker-compose
+a) From the makefile:
+```bash
+make docker
+```
+b) Or manually:
+```bash
+docker build -t dental-care-frontend .
+docker-compose up -d
+```
+### To clear docker image and container:
+a) From the makefile:
+```bash
+make docker-clear
+```
+b) Or manually:
+```bash
+docker rm dentcare-app
+docker rmi dental-care-frontend
+```
 
-## Frontend application
+## Or Run the app on host machine
+### Frontend application
 To build the Typescript project **installing Node is required**.
 ```bash
 npm install
 npm run prod
 ```
 
-## Backend server
+### Backend server
 To build and run **installing Go is required**.
 Commands:
 Build and run go backend on port 4000
